@@ -57,12 +57,6 @@ public class Main {
             comprobar();
 
 
-
-
-
-
-
-
         }else if (opcion==2){
             borrar();
             for (int i = 0; i < l_b; i++) {
@@ -84,7 +78,7 @@ public class Main {
 
     }
 
-    static String[] card(){
+    private static String[] card(){
         Random random = new Random();
         //52 card
         String [] cardlist = {"♣A","♣2","♣3","♣4","♣5","♣6","♣7","♣8","♣9","♣10","♣J","♣Q","♣K",
@@ -99,9 +93,9 @@ public class Main {
             cardlist[n]=temp;
         }
         return cardlist;
-    };
+    }
 
-    static String reparticarta(){
+    private static String reparticarta(){
         String [] card = card();
         String carta="";
         for (int i = 0; i < card.length; i++) {
@@ -112,21 +106,21 @@ public class Main {
             }
         }
         return carta;
-    };
+    }
 
-    static void comprobar(){
+    private static void comprobar(){
         String cp1= reparticarta();
         String cc1= reparticarta();
         String cp2= reparticarta();
         String cc2= reparticarta();
 
-        int c1=value(cc1.substring(1,cc1.length()));
-        int c2=value(cc2.substring(1,cc2.length()));
+        int c1=value(cc1.substring(1));
+        int c2=value(cc2.substring(1));
         int cpoint = c1 + c2;
 
 
-        int p1=value(cp1.substring(1,cp1.length()));
-        int p2=value(cp2.substring(1,cp2.length()));
+        int p1=value(cp1.substring(1));
+        int p2=value(cp2.substring(1));
         int ppoint = p1 + p2;
         System.out.println("Computer");
         System.out.println("1 card: *");
@@ -176,13 +170,13 @@ public class Main {
             }
 
             if (opcion.equals("w")) {
-                ArrayList<String> cardplayer = new ArrayList<String>();
+                ArrayList<String> cardplayer = new ArrayList<>();
                 cardplayer.add(0, cp1);
                 cardplayer.add(1, cp2);
                 for (int i = 2; ppoint < 21; i++) {
                     String cp = reparticarta();
-                    cardplayer.add(cp);
-                    int p = value(cp.substring(1, cp.length()));
+                    cardplayer.add(i,cp);
+                    int p = value(cp.substring(1));
                     ppoint += p;
                     for (int j = 0; j < cardplayer.size(); j++) {
                         System.out.println((j) + 1 + " card: " + cardplayer.get(j));
@@ -190,6 +184,7 @@ public class Main {
                     System.out.println("Point: " + ppoint);
                     if (ppoint > 21) {
                         System.out.println("BUST");
+                        opcion = "t";
                         break;
                     } else if (ppoint == 21) {
                         System.out.println("YOU WIN ！！！");
@@ -207,9 +202,9 @@ public class Main {
                 }
             }
         }
-    };
+    }
 
-    static int value(String cc){
+    private static int value(String cc){
         String []tow = {"2","3","4","5","6","7","8","9","10"};
         String []ten = {"J","Q","K"};
         String oneor11 = "A";
@@ -231,10 +226,10 @@ public class Main {
             }
         }
         return value;
-    };
+    }
 
 
-    static void borrar(){
+    private static void borrar(){
         for (int i = 0; i < 10; i++) {
             System.out.println();
         }
