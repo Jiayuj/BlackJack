@@ -50,6 +50,7 @@ public class Main {
 
         //start game
         if (opcion==1){
+            borrar();
             System.out.println("                 Black Jack                  ");
             System.out.println("---------------------------------------------");
             System.out.println(" A = 1p or 11p | 2-10 = 2p-10p | J,Q,K = 10p ");
@@ -109,81 +110,69 @@ public class Main {
     }
 
     private static void comprobar(){
-        String cp1= reparticarta();
-        String cc1= reparticarta();
-        String cp2= reparticarta();
-        String cc2= reparticarta();
-
-        int c1=value(cc1.substring(1));
-        int c2=value(cc2.substring(1));
-        int cpoint = c1 + c2;
-
-
-        int p1=value(cp1.substring(1));
-        int p2=value(cp2.substring(1));
-        int ppoint = p1 + p2;
+        ArrayList<String> cardplayer = new ArrayList<>();
+        ArrayList<String> cardcomputer = new ArrayList<>();
+        int cpoint=0;
+        int ppoint=0;
+        for (int i = 0; i < 2; i++) {
+            String cc= reparticarta();
+            cardcomputer.add(i,cc);
+            String cp= reparticarta();
+            cardplayer.add(i,cp);
+            cpoint += value(cc.substring(1));
+            ppoint += value(cp.substring(1));
+        }
         System.out.println("Computer");
         System.out.println("1 card: *");
-        System.out.println("2 card: " + cc2);
-        System.out.println();
+        for (int j = 1; j < cardcomputer.size(); j++) {
+            System.out.println((j) + 1 + " card: " + cardcomputer.get(j));
+        }
+        System.out.println("Point: ?");
+        System.out.println("");
         System.out.println("Player");
-        System.out.println("1 card: " + cp1);
-        System.out.println("2 card: " + cp2);
-        System.out.println("Point: "+ ppoint);
-
+        for (int j = 0; j < cardplayer.size(); j++) {
+            System.out.println((j) + 1 + " card: " + cardplayer.get(j));
+        }
+        if (cardplayer.get(0).substring(1).equals("A") || cardplayer.get(1).substring(1).equals("A")){
+            ppoint += 10;
+        }
+        System.out.println("Point: " + ppoint);
         System.out.println();
         System.out.println("opcion:");
         System.out.println("q   w  e  r  t");
         String opcion = new Scanner(System.in).nextLine();
         while (!opcion.equals("t")) {
             if (opcion.equals("q")) {
-                if (p1 == 1 || p2 == 1) {
-                    System.out.println("What point want?");
-                    System.out.println("A = 1   B = 11");
-                    String pointA = new Scanner(System.in).nextLine();
-                    if (pointA.equals("B")) {
-                        ppoint += 10;
-                    }
-                }
-                borrar();
-                System.out.println("                 Black Jack                  ");
-                System.out.println("---------------------------------------------");
-                System.out.println(" A = 1p or 11p | 2-10 = 2p-10p | J,Q,K = 10p ");
-                System.out.println();
-                System.out.println("Computer");
-                System.out.println("1 card: " + cc1);
-                System.out.println("2 card: " + cc2);
-                System.out.println("Point: " + cpoint);
-                System.out.println();
+                opcion = "c";
                 System.out.println("Player");
-                System.out.println("1 card: " + cp1);
-                System.out.println("2 card: " + cp2);
-                System.out.println("Point: " + ppoint);
-                System.out.println();
-                if (cpoint > ppoint) {
-                    System.out.println("YOU LOST ！！！");
-                    opcion="t";
-                } else {
-                    System.out.println("YOU WIN ！！！");
-                    opcion="t";
+                for (int j = 0; j < cardplayer.size(); j++) {
+                    System.out.println((j) + 1 + " card: " + cardplayer.get(j));
                 }
+                System.out.println("Point: " + ppoint);
             }
 
             if (opcion.equals("w")) {
-                ArrayList<String> cardplayer = new ArrayList<>();
-                cardplayer.add(0, cp1);
-                cardplayer.add(1, cp2);
                 for (int i = 2; ppoint < 21; i++) {
                     String cp = reparticarta();
                     cardplayer.add(i,cp);
+                    if (cp.substring(1).equals("A")){
+                        for (int j = 0; j < cardplayer.size(); j++) {
+                            if (cardplayer.get(j).equals("Q") || cardplayer.get(j).equals("J") || cardplayer.get(j).equals("K")){
+
+                            }
+                        }
+                    }
                     int p = value(cp.substring(1));
                     ppoint += p;
+
+                    System.out.println("Player");
                     for (int j = 0; j < cardplayer.size(); j++) {
                         System.out.println((j) + 1 + " card: " + cardplayer.get(j));
                     }
                     System.out.println("Point: " + ppoint);
                     if (ppoint > 21) {
                         System.out.println("BUST");
+                        System.out.println("YOU LOST ！！！");
                         opcion = "t";
                         break;
                     } else if (ppoint == 21) {
@@ -193,12 +182,50 @@ public class Main {
                         System.out.println("A =  yes  B = no");
                         String opcion1 = new Scanner(System.in).nextLine();
                         if (opcion1.equals("B")) {
-                            System.out.println("opcion:");
-                            System.out.println("q   w  e  r  t");
-                            opcion = new Scanner(System.in).nextLine();
+                            opcion = "c";
                             break;
                         }
                     }
+                }
+            }
+
+            if (opcion.equals("c")){
+                for (int i = 2; cpoint < 18; i++) {
+                    String cc = reparticarta();
+                    cardcomputer.add(i, cc);
+                    cpoint += value(cc.substring(1));
+                }
+
+                if (cpoint>21 || ppoint>cpoint){
+                    borrar();
+                    System.out.println("Computer");
+                    for (int j = 0; j < cardcomputer.size(); j++) {
+                        System.out.println((j) + 1 + " card: " + cardcomputer.get(j));
+                    }
+                    System.out.println("Point: " + cpoint);
+                    System.out.println();
+                    System.out.println("Player");
+                    for (int j = 0; j < cardplayer.size(); j++) {
+                        System.out.println((j) + 1 + " card: " + cardplayer.get(j));
+                    }
+                    System.out.println("Point: " + ppoint);
+                    System.out.println("YOU WIN ！！！");
+                    break;
+                }else if (cpoint == 21 || cpoint>ppoint){
+                    borrar();
+                    System.out.println("Computer");
+                    for (int j = 0; j < cardcomputer.size(); j++) {
+                        System.out.println((j) + 1 + " card: " + cardcomputer.get(j));
+                    }
+                    System.out.println("Point: " + cpoint);
+                    System.out.println();
+                    System.out.println("Player");
+                    for (int j = 0; j < cardplayer.size(); j++) {
+                        System.out.println((j) + 1 + " card: " + cardplayer.get(j));
+                    }
+                    System.out.println("Point: " + ppoint);
+                    System.out.println("YOU LOST ！！！");
+                    break;
                 }
             }
         }
