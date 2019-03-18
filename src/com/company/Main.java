@@ -9,16 +9,16 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        int tal;
         String nick;
-        // start game
+
+        // start
         System.out.println(" Welcome to black jack ");
         System.out.println("-----------------------");
         System.out.print(" Enter you nick: ");
         nick = scanner.nextLine();
         borrar();
 
-        //monstar inici
+        //monstar punto
         int point = 100;
 
         int l = nick.length()+9+2+7+Integer.toString(point).length()+2;
@@ -48,7 +48,7 @@ public class Main {
         //select menu
         int opcion=scanner.nextInt();
 
-        //start game
+        //opcion 1 start game
         if (opcion==1){
             borrar();
             System.out.println("                 Black Jack                  ");
@@ -57,7 +57,7 @@ public class Main {
 
             comprobar();
 
-
+        //opcion 2 monstra punto.
         }else if (opcion==2){
             borrar();
             for (int i = 0; i < l_b; i++) {
@@ -78,7 +78,7 @@ public class Main {
         }
 
     }
-
+    // desordena carta
     private static String[] card(){
         Random random = new Random();
         //52 card
@@ -96,6 +96,7 @@ public class Main {
         return cardlist;
     }
 
+    // reparticarta
     private static String reparticarta(){
         String [] card = card();
         String carta="";
@@ -109,35 +110,64 @@ public class Main {
         return carta;
     }
 
+    // funcion de juego
     private static void comprobar(){
+
+        //lista carta que tiene
         ArrayList<String> cardplayer = new ArrayList<>();
         ArrayList<String> cardcomputer = new ArrayList<>();
+        // punto de carta que tiene
         int cpoint=0;
         int ppoint=0;
+
+        //repartica prime dos carta.
         for (int i = 0; i < 2; i++) {
+            int comprobaA=0;
+            int comprobaB=0;
             String cc= reparticarta();
             cardcomputer.add(i,cc);
             String cp= reparticarta();
             cardplayer.add(i,cp);
-            cpoint += value(cc.substring(1));
-            ppoint += value(cp.substring(1));
+            //punto de A
+            if (cc.substring(1).equals("A")){
+                comprobaA += 2;
+            }else if (cc.substring(1).equals("J") || cc.substring(1).equals("Q") ||cc.substring(1).equals("K")){
+                comprobaA++;
+            }
+
+            if (cp.substring(1).equals("A")){
+                comprobaB += 2;
+            }else if (cp.substring(1).equals("J") || cp.substring(1).equals("Q") ||cp.substring(1).equals("K")){
+                comprobaB++;
+            }
+
+            if (comprobaA==3 || comprobaA==2){
+                cpoint += (value(cc.substring(1)))+10;
+            }else {
+                cpoint += value(cc.substring(1));
+            }
+
+            if (comprobaB==3 || comprobaB==2){
+                ppoint += (value(cp.substring(1)))+10;
+            }else {
+                ppoint += value(cp.substring(1));
+            }
         }
+        //mosntra carta que tiene
         System.out.println("Computer");
         System.out.println("1 card: *");
         for (int j = 1; j < cardcomputer.size(); j++) {
             System.out.println((j) + 1 + " card: " + cardcomputer.get(j));
         }
         System.out.println("Point: ?");
-        System.out.println("");
+        System.out.println();
         System.out.println("Player");
         for (int j = 0; j < cardplayer.size(); j++) {
             System.out.println((j) + 1 + " card: " + cardplayer.get(j));
         }
-        if (cardplayer.get(0).substring(1).equals("A") || cardplayer.get(1).substring(1).equals("A")){
-            ppoint += 10;
-        }
         System.out.println("Point: " + ppoint);
         System.out.println();
+        // opcion de jugador
         System.out.println("opcion:");
         System.out.println("q   w  e  r  t");
         String opcion = new Scanner(System.in).nextLine();
@@ -188,12 +218,15 @@ public class Main {
                     }
                 }
             }
-
+            // turno de ordenador
             if (opcion.equals("c")){
-                for (int i = 2; cpoint < 18; i++) {
+                for (int i = 2; cpoint <= ppoint; i++) {
                     String cc = reparticarta();
                     cardcomputer.add(i, cc);
+
+
                     cpoint += value(cc.substring(1));
+
                 }
 
                 if (cpoint>21 || ppoint>cpoint){
@@ -230,7 +263,7 @@ public class Main {
             }
         }
     }
-
+    //valor de cada carta.
     private static int value(String cc){
         String []tow = {"2","3","4","5","6","7","8","9","10"};
         String []ten = {"J","Q","K"};
