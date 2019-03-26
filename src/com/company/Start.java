@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 public class Start {
 
-    Card card = new Card();
+    Deck card = new Deck();
     Menu menu = new Menu();
-    Value value = new Value();
     Muestra muestra = new Muestra();
-    Comprobar comprobar = new Comprobar();
-    ArrayList<String> cardplayer = new ArrayList<>();
-    ArrayList<String> cardcomputer = new ArrayList<>();
+    Checker checker = new Checker();
+    ArrayList<String> playerCards = new ArrayList<>();
+    ArrayList<String> computerCards = new ArrayList<>();
+
     int cpoint=0;
     int ppoint=0;
     int opcionp=0;
@@ -22,39 +22,41 @@ public class Start {
         //repartica prime dos carta.
         for (int i = 0; i < 2; i++) {
             String cc= card.reparticarta();
-            cardcomputer.add(i,cc);
+            computerCards.add(i,cc);
             String cp= card.reparticarta();
-            cardplayer.add(i,cp);
-            cpoint = comprobar.computer_punto(cc);
-            ppoint = comprobar.player_punto(cp);
+            playerCards.add(i,cp);
         }
+        cpoint = checker.check(computerCards);
+        ppoint = checker.check(playerCards);
 
-        muestra.cardcom(cardcomputer);
-        muestra.cardp(cardplayer, ppoint);
+        muestra.cardcom(computerCards);
+        muestra.cardp(playerCards, ppoint);
 
 
-        menu.opcion_player();
-        opcionp = menu.set_opcion();
+        menu.opcionPlayer();
+        opcionp = menu.getOpcion();
         while (opcionp!=9){
             if (opcionp==1){
                 opcionp=11;
             }else if (opcionp==2){
                 for (int i = 2; ppoint < 21; i++) {
                     String cp = card.reparticarta();
-                    cardplayer.add(i, cp);
-                    ppoint += value.value(cp.substring(1));
-                    muestra.cardp(cardplayer,ppoint);
+                    playerCards.add(i, cp);
+                    ppoint = checker.check(playerCards);
+                    muestra.cardp(playerCards,ppoint);
                     if (ppoint > 21) {
                         System.out.println("BUST");
                         System.out.println("YOU LOST ！！！");
+                        Point.point -= 10;
                         opcionp=9;
                     } else if (ppoint == 21) {
                         System.out.println("YOU WIN ！！！");
+                        Point.point += 10;
                         opcionp=9;
                     } else {
                         System.out.println("YOU WANT MORE CARD?");
                         System.out.println("1 =  yes  2 = no");
-                        int opcionmore = menu.set_opcion();
+                        int opcionmore = menu.getOpcion();
                         if (opcionmore==2) {
                             opcionp = 11;
                             break;
@@ -66,20 +68,22 @@ public class Start {
             if (opcionp==11){
                 for (int i = 2; cpoint < 17; i++) {
                     String cc = card.reparticarta();
-                    cardcomputer.add(i, cc);
-                    cpoint += value.value(cc.substring(1));
+                    computerCards.add(i, cc);
+                    cpoint = checker.check(computerCards);
                 }
 
                 if (cpoint>21 || ppoint>cpoint){
-                    muestra.cardcomP(cardcomputer, cpoint);
-                    muestra.cardp(cardplayer, ppoint);
+                    muestra.cardcomP(computerCards, cpoint);
+                    muestra.cardp(playerCards, ppoint);
                     System.out.println("YOU WIN ！！！");
+                    Point.point += 10;
                     opcionp=9;
 
                 }else if (cpoint == 21 || cpoint>ppoint) {
-                    muestra.cardcomP(cardcomputer, cpoint);
-                    muestra.cardp(cardplayer, ppoint);
+                    muestra.cardcomP(computerCards, cpoint);
+                    muestra.cardp(playerCards, ppoint);
                     System.out.println("YOU LOST ！！！");
+                    Point.point -= 10;
                     opcionp = 9;
                 }
             }

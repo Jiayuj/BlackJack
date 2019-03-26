@@ -14,7 +14,6 @@ public class Muestra {
         }
         System.out.println("Point: ?");
         System.out.println();
-
     }
 
     void cardcomP(ArrayList<String> cardcomputer,int cpoint){
@@ -34,5 +33,4 @@ public class Muestra {
         System.out.println("Point: " + ppoint);
         System.out.println();
     }
-
 }

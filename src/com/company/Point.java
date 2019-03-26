@@ -1,9 +1,11 @@
 package com.company;
 
-public class Point {
-    int point = 100;
 
-    void muestra(String nick){
+class Point {
+    static int point = 100;
+
+    static void show(String nick){
+
         int l = nick.length()+9+2+7+Integer.toString(point).length()+2;
         int l_b= (l - 10)/2;
         for (int i = 0; i < l_b; i++) {

@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Menu {
 
 
-    void opcion(){
+    void mostrar(){
         System.out.println(" Menu");
         System.out.println("-----------");
         System.out.println("1 - Start game");
@@ -13,7 +13,7 @@ public class Menu {
         System.out.println("3 - Exit");
     }
 
-    int set_opcion(){
+    int getOpcion(){
         int opcion= new Scanner(System.in).nextInt();
         return opcion;
     }
@@ -25,12 +25,12 @@ public class Menu {
         System.out.println(" A = 1p or 11p | 2-10 = 2p-10p | J,Q,K = 10p ");
     }
 
-    void opcion_player(){
-        System.out.println("opcion:");
+    void opcionPlayer(){
+        System.out.println("mostrar:");
         System.out.println("1 = stand 2 = hit  3  4  5");
     }
 
-    void opcion_mas(){
+    void opcionMas(){
         System.out.println("YOU WANT MORE CARD?");
         System.out.println("1 =  yes  2 = no");
     }

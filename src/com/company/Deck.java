@@ -2,10 +2,12 @@ package com.company;
 
 import java.util.Random;
 
-public class Card {
+public class Deck {
 
     String [] cardlist;
+
     int orden = 0;
+
     static String [] desordena(){
         String [] cardlist = {"♣A","♣2","♣3","♣4","♣5","♣6","♣7","♣8","♣9","♣10","♣J","♣Q","♣K",
                 "♦A","♦2","♦3","♦4","♦5","♦6","♦7","♦8","♦9","♦10","♦J","♦Q","♦K",
@@ -24,11 +26,10 @@ public class Card {
     void carddesodenat(){
         cardlist= desordena();
     }
+
     String reparticarta(){
         String carta= cardlist[orden];
         orden++;
         return carta;
     }
-
-
 }
