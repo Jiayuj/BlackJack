@@ -87,6 +87,12 @@ public class Start {
                     opcionp = 9;
                 }
             }
+
+            if (opcionp==00){
+                Point.point -= 10;
+                System.out.println("You points - 10\n");
+                opcionp = 9;
+            }
         }
     }
 }

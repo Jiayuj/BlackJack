@@ -27,11 +27,11 @@ public class Menu {
 
     void opcionPlayer(){
         System.out.println("mostrar:");
-        System.out.println("1 = stand 2 = hit  3  4  5");
+        System.out.println("1 = stand : 2 = hit : 00 = exit");
     }
 
     void opcionMas(){
         System.out.println("YOU WANT MORE CARD?");
-        System.out.println("1 =  yes  2 = no");
+        System.out.println("1 =  yes : 2 = no");
     }
 }

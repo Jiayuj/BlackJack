@@ -30,7 +30,7 @@ public class Main {
             if (opcion == 1) {
                 Start start = new Start();
                 start.game();
-                System.out.println("Again ?");
+                System.out.println("New Game ?");
                 System.out.println("1 = Yes 2 = No");
                 int opcionagain=menu.getOpcion();
                 if (opcionagain==1){
