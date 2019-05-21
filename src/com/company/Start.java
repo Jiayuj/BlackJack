@@ -72,7 +72,7 @@ public class Start {
                     cpoint = checker.check(computerCards);
                 }
 
-                if (cpoint>21 || ppoint>cpoint){
+                if (cpoint>21 || ppoint>=cpoint){
                     muestra.cardcomP(computerCards, cpoint);
                     muestra.cardp(playerCards, ppoint);
                     System.out.println("YOU WIN ！！！");

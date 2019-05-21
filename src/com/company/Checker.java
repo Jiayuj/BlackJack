@@ -25,10 +25,14 @@ public class Checker {
         }
 
 
-        if (A && jqk && n){
-            point = 21;
-        }else if (A && !jqk && n){
+        if (A && !jqk && n){
             if ((point+10) < 21){
+                point +=10;
+            }
+        } else if (A && jqk && !n){
+            point = 21;
+        } else if (A && jqk && n){
+            if ((point+10) <= 21){
                 point +=10;
             }
         }
